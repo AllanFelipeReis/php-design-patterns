@@ -1,6 +1,7 @@
 <?php
 
 use DesignPattern\GerarPedido;
+use DesignPattern\GerarPedidoHandler;
 
 require_once 'vendor/autoload.php';
 
@@ -9,6 +10,8 @@ $numeroItens = $argv[2];
 $nomeCliente = $argv[3];
 
 $gerarPedido = new GerarPedido($valorOrcamento, $numeroItens, $nomeCliente);
-$gerarPedido->execute();
+$gerarPedidoHandler = new GerarPedidoHandler();
+
+$gerarPedidoHandler->execute($gerarPedido);
 
 

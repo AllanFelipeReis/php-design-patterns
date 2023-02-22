@@ -20,19 +20,16 @@ class GerarPedido
         $this->nomeCliente = $nomeCliente;
     }
 
-    public function execute()
+    public function getValorItens(): int
     {
-        
-        $orcamento = new Orcamento();
-        $orcamento->quantidadeItens = $this->numeroItens;
-        $orcamento->valor = $this->valorItens;
-
-        $pedido = new Pedido();
-        $pedido->nomeCliente = $this->nomeCliente;
-        $pedido->dataFinalizacao = new \DateTimeImmutable();
-        $pedido->orcamento = $orcamento;
-
-        echo "Cria pedido no banco de dados" . PHP_EOL;
-        echo "Envia e-mail para o cliente" . PHP_EOL;
+        return $this->valorItens;
+    }
+    public function getNumeroItens(): float
+    {
+        return $this->numeroItens;
+    }
+    public function getNomeCliente(): string
+    {
+        return $this->nomeCliente;
     }
 }
