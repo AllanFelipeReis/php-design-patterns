@@ -2,11 +2,23 @@
 
 namespace DesignPattern;
 
+use DesignPattern\AcoesAoGerarPedido\AcaoAposGerarPedido;
+use DesignPattern\AcoesAoGerarPedido\CriarPedidoNoBanco;
+use DesignPattern\AcoesAoGerarPedido\EnviarPedidoPorEmail;
+use DesignPattern\AcoesAoGerarPedido\LogGerarPedido;
+
 class GerarPedidoHandler
-{
+{   
+    /** @var AcaoAposGerarPedido */
+    private array $acoesAposGerarPedido = [];
+
     public function __construct()
+    {    
+    }
+
+    public function adicionarAcaoAoGerarPedido(AcaoAposGerarPedido $acao)
     {
-        
+        $this->acoesAposGerarPedido[] = $acao;
     }
 
     public function execute(GerarPedido $gerarPedido)
@@ -21,9 +33,9 @@ class GerarPedidoHandler
         $pedido->dataFinalizacao = new \DateTimeImmutable();
         $pedido->orcamento = $orcamento;
 
-        // PedidosRepository
-        echo "Cria pedido no banco de dados" . PHP_EOL;
-        // MailService
-        echo "Envia e-mail para o cliente" . PHP_EOL;
+        foreach($this->acoesAposGerarPedido as $acao)
+        {
+            $acao->executaAcao($pedido);
+        }
     }
 }
