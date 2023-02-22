@@ -9,7 +9,7 @@ abstract class EstadosOrcamento
     /**
      * @throws \DomainException
      */
-    abstract public function calculaDescontoExtra(Orcamento $orcamento): float;
+    abstract public function calculaDescontoExtra(Orcamento $orcamento);
 
     public function aprova(Orcamento $orcamento)
     {
