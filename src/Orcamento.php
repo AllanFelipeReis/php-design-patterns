@@ -10,12 +10,12 @@ use DesignPattern\EstadosOrcamento\Reprovado;
 
 class Orcamento
 {
-    public float $valor;
-    public int $quantidadeItens;
+    private array $itens;
     public EstadosOrcamento $estadoAtual;
 
     public function __construct()
     {   
+        $this->itens = [];
         $this->estadoAtual = new EmAprovacao();
     }
 
@@ -37,5 +37,20 @@ class Orcamento
     public function finaliza()
     {
         $this->estadoAtual->finaliza($this);
+    }
+
+    public function addItem(ItemOrcamento $item)
+    {
+        $this->itens[] = $item;
+        return $this;
+    }
+
+    public function valor(): float
+    {
+        return array_reduce(
+            $this->itens,
+            fn (float $valorAcumulado, ItemOrcamento $item) => $item->valor + $valorAcumulado,
+            0
+        );
     }
 }

@@ -15,9 +15,9 @@ $icms = new Icms();
 $iss = new Iss();
 $orc = new Orcamento();
 
-$orc->valor = 600;
+$orc->valor = 100;
 $orc->quantidadeItens = 5;
 
-echo $calcImpostos->calcula($orc, $iss);
+echo $calcImpostos->calcula($orc, new Iss(new Icms()));
 echo "\n";
 echo $calcDescontos->calculaDescontos($orc);
