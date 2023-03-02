@@ -7,8 +7,9 @@ use DesignPattern\EstadosOrcamento\EmAprovacao;
 use DesignPattern\EstadosOrcamento\EstadosOrcamento;
 use DesignPattern\EstadosOrcamento\Finalizado;
 use DesignPattern\EstadosOrcamento\Reprovado;
+use DesignPattern\Orcavel as DesignPatternOrcavel;
 
-class Orcamento
+class Orcamento implements Orcavel
 {
     private array $itens;
     public EstadosOrcamento $estadoAtual;
@@ -39,7 +40,7 @@ class Orcamento
         $this->estadoAtual->finaliza($this);
     }
 
-    public function addItem(ItemOrcamento $item)
+    public function addItem(Orcavel $item)
     {
         $this->itens[] = $item;
         return $this;
@@ -49,7 +50,7 @@ class Orcamento
     {
         return array_reduce(
             $this->itens,
-            fn (float $valorAcumulado, ItemOrcamento $item) => $item->valor + $valorAcumulado,
+            fn (float $valorAcumulado, Orcavel $item) => $item->valor() + $valorAcumulado,
             0
         );
     }
