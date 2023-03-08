@@ -1,10 +1,10 @@
 <?php
 
-namespace DesignPattern;
+namespace DesignPattern\Pedido;
 
 use DateTimeInterface;
 
-class DadosExtrinsecosPedido
+class TemplatePedido
 {
     private string $nomeCliente;
     private DateTimeInterface $dataFinalizacao;

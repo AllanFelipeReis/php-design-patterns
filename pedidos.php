@@ -1,19 +1,22 @@
 <?php
 
-use DesignPattern\DadosExtrinsecosPedido;
+use DesignPattern\Pedido\TemplatePedido;
 use DesignPattern\Orcamento;
-use DesignPattern\Pedido;
+use DesignPattern\Pedido\CriadorDePedido;
+use DesignPattern\Pedido\Pedido;
 
 require 'vendor/autoload.php';
 
 $pedidos = [];
-$dados = new DadosExtrinsecosPedido(md5((string) rand(1, 1000)), new \DateTimeImmutable());
+$criadorPedido = new CriadorDePedido();
 
 for($i = 0; $i < 10000; $i++)
 {
-    $pedido = new Pedido();
-    $pedido->dados = $dados;
-    $pedido->orcamento = new Orcamento();
+    $pedido = $criadorPedido->criaPedido(
+        "Allan Reis",
+        date("Y-m-d"),
+        new Orcamento()
+    );
 
     $pedidos[] = $pedido;
 }
